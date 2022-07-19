@@ -8,13 +8,12 @@ export const GET_SINGLE_USER = gql`
       email
       password
       savedBooks {
-        _id
+        bookId
+        title
         authors
         description
-        bookId
         image
         link
-        title
       }
     }
   }
