@@ -11,7 +11,7 @@ npm install
 ```
 3. Enter following in command line in the same directory to run server.
 ```
-npm start
+npm run develop
 ```
 4. Now your app is ready to run. 
 

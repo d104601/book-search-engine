@@ -8,8 +8,7 @@ const resolvers = {
             if(!context.user) {
                 throw new AuthenticationError('Sign in required!');
             }
-            const userData = await User.findOne({_id: context.user._id}).select('-__v -password');
-            return userData;
+            return User.findOne({_id: context.user._id});
         }
     },
 
@@ -30,36 +29,36 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addUser: async(parent, args) => {
-            const user = await User.create(args);
+        addUser: async(parent, { username, email, password }) => {
+            const user = await User.create({ username, email, password });
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async(parent, {input}, context) => {
+        saveBook: async(parent, {data}, context) => {
             if(!context.user) {
                 throw new AuthenticationError("Sign-in required");               
             }
 
-            const update = await User.findOneAndUpdate(
+            const userData = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { savedBooks: input }},
+                { $addToSet: { savedBooks: data }},
                 { new: true, runValidators: true }
             );
 
-            return update;
+            return userData;
         },
         removeBook: async(parent, {bookId}, context) => {
             if(!context.user) {
                 throw new AuthenticationError("Sign-in required");               
             }
 
-            const update = await User.findOneAndUpdate(
+            const userData = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $pull: {savedBooks: {bookId: bookId} }},
+                { $pull: { savedBooks: { bookId } }},
                 { new: true }
             );
 
-            return update;
+            return userData;
         }
     }
 }
