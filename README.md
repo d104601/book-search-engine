@@ -20,4 +20,4 @@ Click the link in "Deployed Website" below to run the application.
 To run in local, open your browser and visit http://localhost:3000.
 
 ## Deployed Application
-https://book-search-engine-taeyong.herokuapp.com/
+https://book-search-engine-taeyong-lee.herokuapp.com/
