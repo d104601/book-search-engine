@@ -8,7 +8,7 @@ const resolvers = {
             if(!context.user) {
                 throw new AuthenticationError('Sign in required!');
             }
-            const userData = await User.findOne({_id: context.user._id}).populate('savedBooks');
+            const userData = await User.findOne({_id: context.user._id}).select('-__v -password');
             return userData;
         }
     },
@@ -16,10 +16,13 @@ const resolvers = {
     Mutation: {
         login: async (parent, {email, password}) => {
             const user = await User.findOne( {email} );
+            
             if (!user) {
                 throw new AuthenticationError('No user or incorrect password');
             }
+            
             const correctPw = await profile.isCorrectPassword(password);
+            
             if (!correctPw) {
                 throw new AuthenticationError('No user or incorrect password');
             }
@@ -32,16 +35,16 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async(parent, data, context) => {
+        saveBook: async(parent, {input}, context) => {
             if(!context.user) {
                 throw new AuthenticationError("Sign-in required");               
             }
 
             const update = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: {savedBooks: data }},
+                { $addToSet: { savedBooks: input }},
                 { new: true, runValidators: true }
-            ).populate("savedBooks");
+            );
 
             return update;
         },
@@ -54,7 +57,7 @@ const resolvers = {
                 { _id: context.user._id },
                 { $pull: {savedBooks: {bookId: bookId} }},
                 { new: true }
-            ).populate("savedBooks");
+            );
 
             return update;
         }
