@@ -9,9 +9,9 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data } = useQuery(GET_ME, {fetchPolicy: "cache-first"});
   const [removeBook] = useMutation(REMOVE_BOOK);
-  const userData = data.me;
+  const userData = data?.me || {savedBooks: []};
 
   console.log(data);
 
