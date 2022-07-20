@@ -8,29 +8,31 @@ const resolvers = {
             if(!context.user) {
                 throw new AuthenticationError('Sign in required!');
             }
-            return User.findOne({_id: context.user._id});
+            const userData = await User.findOne({_id: context.user._id}).select('-__v -password');
+
+            return userData;
         }
     },
 
     Mutation: {
-        login: async (parent, {email, password}) => {
-            const user = await User.findOne( {email} );
-            
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
             if (!user) {
-                throw new AuthenticationError('No user or incorrect password');
+              throw new AuthenticationError('No user found');
             }
-            
-            const correctPw = await profile.isCorrectPassword(password);
-            
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
             if (!correctPw) {
-                throw new AuthenticationError('No user or incorrect password');
+              throw new AuthenticationError('Incorrect credentials');
             }
-
+      
             const token = signToken(user);
             return { token, user };
         },
-        addUser: async(parent, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
+        addUser: async(parent, args) => {
+            const user = await User.create(args);
             const token = signToken(user);
             return { token, user };
         },
