@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 import { GET_ME } from '../utils/queries';
@@ -10,9 +9,8 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  const { username: userParam } = useParams();
-  const { loading, data} = useQuery(GET_ME, { varaibles: {username: userParam}});
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const { loading, data } = useQuery(GET_ME);
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
   const userData = data?.me || {};
 
@@ -25,7 +23,7 @@ const SavedBooks = () => {
     }
 
     try {
-      const { data } = await removeBook({ variables: {bookId}});
+      await removeBook({ variables: {bookId} });
 
       removeBookId(bookId);
     } catch (err) {
