@@ -1,4 +1,4 @@
-# Book Search Engine Starter Code
+# Book Search Engine
 
 ## Installation
 No additional installation required for this application basically. 
@@ -20,3 +20,4 @@ Click the link in "Deployed Website" below to run the application.
 To run in local, open your browser and visit http://localhost:3000.
 
 ## Deployed Application
+https://book-search-engine-taeyong.herokuapp.com/
