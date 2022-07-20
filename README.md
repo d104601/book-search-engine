@@ -1,9 +1,12 @@
 # Book Search Engine
 
+## Description
+Google API based application for booksearch. The application is built with React, MongoDB, Node.js and Express.js. Originally built with RESTful API and refactored to GraphQL API built with Apollo Server.
+
 ## Installation
 No additional installation required for this application basically. 
 
-This application requires "Node.js" and npm packages listed in package.json to run the application in local server. To run application in local server, please follow as below:
+This application requires "MongoDB" server, "Node.js", and npm packages listed in package.json to run the application in local server. To run application in local server, please follow as below:
 1. Clone this repository.
 2. Enter following in command line in the same directory to install required packages.
 ```
@@ -21,3 +24,7 @@ To run in local, open your browser and visit http://localhost:3000.
 
 ## Deployed Application
 https://book-search-engine-taeyong-lee.herokuapp.com/
+
+## Sample Screenshot
+![sample](https://github.com/d104601/book-search-engine/blob/main/screenshot1.jpg)
+![sample](https://github.com/d104601/book-search-engine/blob/main/screenshot2.jpg)
