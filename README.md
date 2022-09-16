@@ -3,6 +3,14 @@
 ## Description
 Google API based application for booksearch. The application is built with React, MongoDB, Node.js and Express.js. Originally built with RESTful API and refactored to GraphQL API built with Apollo Server.
 
+## Technologies Used
+* React.js
+* Node.js
+* Bootstrap
+* MongoDB
+* Express.js
+* GraphQL
+
 ## Installation
 No additional installation required for this application basically. 
 
